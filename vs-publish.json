@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/vsix-publish",
+  "categories": [ "other" ],
+  "identity": {
+    "internalName": "ScrollTabs",
+    "tags": [ "tabs", "scroll", "mouse", "documents" ]
+  },
+  "assetFiles": [
+    {
+      "pathOnDisk": "art/multiline.gif",
+      "targetPath": "art/multiline.gif"
+    }
+  ],
+  "overview": "README.md",
+  "publisher": "MadsKristensen",
+  "repo": "https://github.com/MadsKristensen/ScrollTabs"
+}
