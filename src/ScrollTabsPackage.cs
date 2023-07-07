@@ -40,7 +40,7 @@ namespace ScrollTabs
                 ActivateNextOrPreviousTab(e);
             }
 
-            // MouseWheel over tab well with no modifier keys down
+            // MouseWheel over Tab Well with no modifier keys down
             else if (!Keyboard.IsKeyDown(Key.LeftAlt) && !Keyboard.IsKeyDown(Key.RightAlt) &&
                      !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift) &&
                      !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
@@ -60,19 +60,12 @@ namespace ScrollTabs
             {
                 bool isMultiRowsEnabled = IsMultiRowsEnabled();
 
-                // MouseWheel up: disable multi rows
-                if (e.Delta > 0 && isMultiRowsEnabled)
+                if ((e.Delta > 0 && isMultiRowsEnabled) || // MouseWheel up: disable multi rows
+                    (e.Delta < 0 && !isMultiRowsEnabled))  // MouseWheel down: enable multi rows
                 {
                     _command.ExecuteAsync().FireAndForget();
+                    e.Handled = true;
                 }
-
-                // MouseWheel down: enable multi rows
-                else if (e.Delta < 0 && !isMultiRowsEnabled)
-                {
-                    _command.ExecuteAsync().FireAndForget();
-                }
-
-                e.Handled = true;
             }
         }
 
