@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="ScrollTabs.866e1c86-a800-4ca9-9da3-425e0d881b1d" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
-        <DisplayName>Scroll Tabs</DisplayName>
-        <Description xml:space="preserve">Allows you to scroll through open document tabs using the moues wheel</Description>
-        <License>Resources\LICENSE</License>
-        <Icon>Resources\Icon.png</Icon>
-        <PreviewImage>Resources\Icon.png</PreviewImage>
-        <Tags>tabs, scroll, mouse, documents</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-    </Installation>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
-    </Prerequisites>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="ScrollTabs.866e1c86-a800-4ca9-9da3-425e0d881b1d" Version="1.0" Language="en-US" Publisher="Mads Kristensen" />
+    <DisplayName>Scroll Tabs</DisplayName>
+    <Description xml:space="preserve">Allows you to scroll through open document tabs using the moues wheel</Description>
+    <MoreInfo>https://github.com/madskristensen/ScrollTabs/</MoreInfo>
+    <License>Resources\LICENSE</License>
+    <Icon>Resources\Icon.png</Icon>
+    <PreviewImage>Resources\Icon.png</PreviewImage>
+    <Tags>tabs, scroll, mouse, documents</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+      <ProductArchitecture>arm64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>
