@@ -20,6 +20,7 @@ namespace ScrollTabs
     public sealed class ScrollTabsPackage : ToolkitPackage
     {
         private UIElement _tabWell;
+        private DateTime _showMultiLineTabsDate;
 
         // OtherContextMenus.EasyMDIToolWindow.ShowTabsInMultipleRows
         private static readonly CommandID _command = new(new Guid("{43F755C7-7916-454D-81A9-90D4914019DD}"), 0x14);
@@ -28,6 +29,16 @@ namespace ScrollTabs
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Application.Current.MainWindow.PreviewMouseWheel += OnMouseWheel;
+            VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
+        }
+
+        private void OnActiveFrameChanged(ActiveFrameChangeEventArgs obj)
+        {
+            // If less than 5 seconds have passed since the user enabled multi rows, then disable multi rows
+            if (_showMultiLineTabsDate.AddSeconds(5) > DateTime.Now && IsMultiRowsEnabled())
+            {
+                _command.ExecuteAsync().FireAndForget();
+            }
         }
 
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
@@ -59,12 +70,18 @@ namespace ScrollTabs
             if (_tabWell?.IsMouseOver == true)
             {
                 bool isMultiRowsEnabled = IsMultiRowsEnabled();
+                bool disableMultiRows = e.Delta > 0 && isMultiRowsEnabled; // MouseWheel up: disable multi rows
+                bool enableMultiRows = e.Delta < 0 && !isMultiRowsEnabled; // MouseWheel down: enable multi rows
 
-                if ((e.Delta > 0 && isMultiRowsEnabled) || // MouseWheel up: disable multi rows
-                    (e.Delta < 0 && !isMultiRowsEnabled))  // MouseWheel down: enable multi rows
+                if (disableMultiRows || enableMultiRows)  
                 {
                     _command.ExecuteAsync().FireAndForget();
                     e.Handled = true;
+                }
+
+                if (enableMultiRows)
+                {
+                    _showMultiLineTabsDate = DateTime.Now;
                 }
             }
         }
