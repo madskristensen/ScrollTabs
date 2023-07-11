@@ -9,7 +9,7 @@ namespace ScrollTabs
     {
         public const string Id = "ScrollTabs.866e1c86-a800-4ca9-9da3-425e0d881b1d";
         public const string Name = "Scroll Tabs";
-        public const string Description = @"Allows you to scroll through open document tabs using the moues wheel";
+        public const string Description = @"Allows you to scroll through open document tabs using the mouse wheel";
         public const string Language = "en-US";
         public const string Version = "1.0";
         public const string Author = "Mads Kristensen";
