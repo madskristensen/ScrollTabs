@@ -19,7 +19,6 @@ namespace ScrollTabs
     [ProvideAutoLoad(VSConstants.UICONTEXT.ShellInitialized_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class ScrollTabsPackage : ToolkitPackage
     {
-        private UIElement _tabWell;
         private DateTime _showMultiLineTabsDate;
 
         // OtherContextMenus.EasyMDIToolWindow.ShowTabsInMultipleRows
@@ -62,18 +61,13 @@ namespace ScrollTabs
 
         private void ToggleMultiRowSetting(MouseWheelEventArgs e)
         {
-            if (_tabWell == null || !_tabWell.IsVisible)
-            {
-                _tabWell = Application.Current.MainWindow.FindChild<UIElement>("InsertTabPreviewDockTarget");
-            }
-
-            if (_tabWell?.IsMouseOver == true)
+            if (Mouse.DirectlyOver.HasParent("InsertTabPreviewDockTarget"))
             {
                 bool isMultiRowsEnabled = IsMultiRowsEnabled();
                 bool disableMultiRows = e.Delta > 0 && isMultiRowsEnabled; // MouseWheel up: disable multi rows
                 bool enableMultiRows = e.Delta < 0 && !isMultiRowsEnabled; // MouseWheel down: enable multi rows
 
-                if (disableMultiRows || enableMultiRows)  
+                if (disableMultiRows || enableMultiRows)
                 {
                     _command.ExecuteAsync().FireAndForget();
                     e.Handled = true;

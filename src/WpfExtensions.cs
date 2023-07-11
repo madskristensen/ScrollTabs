@@ -5,38 +5,21 @@ namespace ScrollTabs
 {
     public static class WpfExtensions
     {
-        public static T FindChild<T>(this DependencyObject parent, string childName) where T : DependencyObject
+        public static bool HasParent(this IInputElement child, string name)
         {
-            if (parent == null)
+            FrameworkElement el = child as FrameworkElement;
+
+            while (el != null)
             {
-                return null;
-            }
-
-            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-
-            for (int i = 0; i < childrenCount; i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-
-                if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
+                if (el.Name == name)
                 {
-                    return frameworkElement as T;
+                    return true;
                 }
+
+                el = VisualTreeHelper.GetParent(el) as FrameworkElement;
             }
 
-            for (int i = 0; i < childrenCount; i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
-
-                child = FindChild<T>(child, childName);
-
-                if (child != null)
-                {
-                    return child as T;
-                }
-            }
-
-            return null;
+            return false;
         }
     }
 }
