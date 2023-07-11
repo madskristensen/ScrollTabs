@@ -16,10 +16,14 @@ being toggled on and off as shown in this animation.
 
 ![Multiline toggle](art/multiline.gif)
 
+When the multi-line tabs feature is enabled and you navigate to a different document within a 
+few seconds, the multi-line tabs will automatically collapse back to single-line.
+
 This behavior gives you quick access to all your open documents by using the mouse wheel.
 
-You can also move between open documents by holding the **Alt** key while scrolling the mouse wheel.
-Scrolling down will activate the document to the right of the currently open document and vice versa.
+You can also move between open documents by holding the **Alt** key while scrolling the mouse wheel
+anywhere in the IDE. Scrolling down will activate the document to the right of the currently 
+open document and vice versa.
 
 ## How can I help?
 If you enjoy using the extension, please give it a ★★★★★ rating on the [Visual Studio Marketplace][marketplace].
