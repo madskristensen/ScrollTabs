@@ -20,12 +20,15 @@ namespace ScrollTabs
     public sealed class ScrollTabsPackage : ToolkitPackage
     {
         private DateTime _showMultiLineTabsDate;
+        private RatingPrompt _rating;
 
         // OtherContextMenus.EasyMDIToolWindow.ShowTabsInMultipleRows
         private static readonly CommandID _command = new(new Guid("{43F755C7-7916-454D-81A9-90D4914019DD}"), 0x14);
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            _rating = new("MadsKristensen.ScrollTabs", Vsix.Name, await General.GetLiveInstanceAsync(), 2);
+
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Application.Current.MainWindow.PreviewMouseWheel += OnMouseWheel;
             VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
@@ -48,6 +51,7 @@ namespace ScrollTabs
                 !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 ActivateNextOrPreviousTab(e);
+                _rating.RegisterSuccessfulUsage();
             }
 
             // MouseWheel over Tab Well with no modifier keys down
@@ -56,6 +60,7 @@ namespace ScrollTabs
                      !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 ToggleMultiRowSetting(e);
+                _rating.RegisterSuccessfulUsage();
             }
         }
 
