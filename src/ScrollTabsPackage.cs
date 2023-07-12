@@ -40,6 +40,7 @@ namespace ScrollTabs
             if (_showMultiLineTabsDate.AddSeconds(5) > DateTime.Now && IsMultiRowsEnabled())
             {
                 _command.ExecuteAsync().FireAndForget();
+                _rating.RegisterSuccessfulUsage();
             }
         }
 
@@ -51,7 +52,6 @@ namespace ScrollTabs
                 !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 ActivateNextOrPreviousTab(e);
-                _rating.RegisterSuccessfulUsage();
             }
 
             // MouseWheel over Tab Well with no modifier keys down
@@ -60,7 +60,6 @@ namespace ScrollTabs
                      !Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 ToggleMultiRowSetting(e);
-                _rating.RegisterSuccessfulUsage();
             }
         }
 
