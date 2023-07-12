@@ -11,6 +11,9 @@ or get the [CI build][vsixgallery].
 
 --------------------------------------
 
+> This extension was created as a response to the Visual Studio feature request
+[Scrollable open file tabs with mouse wheel](https://developercommunity.visualstudio.com/t/Scrollable-open-file-tabs-with-mouse-whe/353560).
+
 When the mouse hovers over the document tabs and the mouse wheel is scrolled, the multi-line tabs feature is
 being toggled on and off as shown in this animation.
 
