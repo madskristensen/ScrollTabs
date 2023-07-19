@@ -34,6 +34,9 @@ namespace ScrollTabs
             VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
         }
 
+        /// <summary>
+        /// Handler to handle the active frame changed event that gets triggered when a frame gets loaded or unloaded.
+        /// </summary>
         private void OnActiveFrameChanged(ActiveFrameChangeEventArgs obj)
         {
             // If less than 5 seconds have passed since the user enabled multi rows, then disable multi rows
@@ -44,6 +47,9 @@ namespace ScrollTabs
             }
         }
 
+        /// <summary>
+        /// Handler to handle the mouse-wheel event over the tab well.
+        /// </summary>
         private void OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // Alt + MouseWheel
@@ -63,6 +69,9 @@ namespace ScrollTabs
             }
         }
 
+        /// <summary>
+        /// Method to toggle multi-row setting for tab control.
+        /// </summary>
         private void ToggleMultiRowSetting(MouseWheelEventArgs e)
         {
             if (Mouse.DirectlyOver.HasParent("InsertTabPreviewDockTarget"))
@@ -84,6 +93,9 @@ namespace ScrollTabs
             }
         }
 
+        /// <summary>
+        /// Helper method to activate the next or previous tab based on the mouse wheel delta value.
+        /// </summary>
         private static void ActivateNextOrPreviousTab(MouseWheelEventArgs e)
         {
             string commandName = e.Delta > 0 ? "Window.PreviousTab" : "Window.NextTab";
@@ -91,6 +103,10 @@ namespace ScrollTabs
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Helper method to check if multi-row tabs are enabled.
+        /// </summary>
+        /// <returns>Returns true if multi-row tabs are enabled; otherwise, false.</returns>
         private bool IsMultiRowsEnabled()
         {
             using (RegistryKey key = UserRegistryRoot.OpenSubKey("ApplicationPrivateSettings\\WindowManagement\\Options"))
