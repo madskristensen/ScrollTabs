@@ -1,5 +1,5 @@
 [marketplace]: https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ScrollTabs
-[vsixgallery]: http://vsixgallery.com/extension/ScrollTabs.866e1c86-a800-4ca9-9da3-425e0d881b1d/
+[vsixgallery]: https://vsixgallery.com/extension/ScrollTabs.866e1c86-a800-4ca9-9da3-425e0d881b1d/
 [repo]:https://github.com/madskristensen/ScrollTabs
 
 # Scroll Tabs for Visual Studio
