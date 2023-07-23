@@ -5,13 +5,16 @@ namespace ScrollTabs
 {
     public static class WpfExtensions
     {
-        public static bool HasParent(this IInputElement child, string name)
+        /// <summary>
+        /// Checks if <paramref name="parent"/> is one of <paramref name="child"/> ancestors.
+        /// </summary>
+        public static bool HasParent(this IInputElement child, FrameworkElement parent)
         {
             FrameworkElement el = child as FrameworkElement;
 
             while (el != null)
             {
-                if (el.Name == name)
+                if (el == parent)
                 {
                     return true;
                 }
