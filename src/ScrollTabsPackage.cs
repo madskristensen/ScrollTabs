@@ -53,7 +53,8 @@ namespace ScrollTabs
             EventManager.RegisterClassHandler(typeof(Window), Mouse.PreviewMouseWheelEvent, new MouseWheelEventHandler(OnMouseWheelOverWindowAsync), false);
 
             // Capture active frame changed event.
-            VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
+            // QuickFix: Causes some windows to not work, https://github.com/madskristensen/ScrollTabs/issues/6
+            //VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
         }
 
         /// <summary>
