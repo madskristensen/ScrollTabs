@@ -27,9 +27,6 @@ namespace ScrollTabs
         private static readonly Dictionary<Type, PropertyInfo> _getContentProperties = new();
         private static readonly Dictionary<Type, PropertyInfo> _getContainingWindowProperties = new();
         private static readonly Dictionary<Type, PropertyInfo> _getIsActiveProperties = new();
-        private static bool _activeFrameChangeDisabled;
-
-        private DateTime _showMultiLineTabsDate;
         private RatingPrompt _rating;
 
         // OtherContextMenus.EasyMDIToolWindow.ShowTabsInMultipleRows
@@ -51,10 +48,6 @@ namespace ScrollTabs
             // Capture all mouse wheel events on windows.
             // Later filtered to windows with documents.
             EventManager.RegisterClassHandler(typeof(Window), Mouse.PreviewMouseWheelEvent, new MouseWheelEventHandler(OnMouseWheelOverWindowAsync), false);
-
-            // Capture active frame changed event.
-            // QuickFix: Causes some windows to not work, https://github.com/madskristensen/ScrollTabs/issues/6
-            //VS.Events.WindowEvents.ActiveFrameChanged += OnActiveFrameChanged;
         }
 
         /// <summary>
@@ -72,9 +65,6 @@ namespace ScrollTabs
             // MouseWheel over Tab Well with no modifier keys down
             if (!IsAnyAlt() && !IsAnyShift() && !IsAnyCtrl())
             {
-                // Enable active frame changed event if is disabled.
-                _activeFrameChangeDisabled = false;
-
                 ToggleMultiRowSetting(e);
             }
         }
@@ -92,11 +82,8 @@ namespace ScrollTabs
             {
                 _command.ExecuteAsync().FireAndForget();
                 e.Handled = true;
-            }
 
-            if (enableMultiRows)
-            {
-                _showMultiLineTabsDate = DateTime.Now;
+                _rating.RegisterSuccessfulUsage();
             }
         }
 
@@ -240,31 +227,12 @@ namespace ScrollTabs
         private static void ActivateNextOrPreviousTab(MouseWheelEventArgs e)
         {
             string commandName = e.Delta > 0 ? "Window.PreviousTab" : "Window.NextTab";
-
-            // Disable active frame changed event, else it will automatically collapse tab well.
-            _activeFrameChangeDisabled = true;
+            
             VS.Commands.ExecuteAsync(commandName)
-                .ContinueWith(_ => _activeFrameChangeDisabled = false) // And after command restore active frame changed event.
                 .FireAndForget();
             e.Handled = true;
         }
-
-        /// <summary>
-        /// Handler to handle the active frame changed event that gets triggered when a frame gets loaded or unloaded.
-        /// </summary>
-        private void OnActiveFrameChanged(ActiveFrameChangeEventArgs obj)
-        {
-            // The event is temporarily disabled by Move to next or previous tab event processing.
-            if (_activeFrameChangeDisabled) return;
-
-            // If less than 5 seconds have passed since the user enabled multi rows, then disable multi rows
-            if (_showMultiLineTabsDate.AddSeconds(5) > DateTime.Now && IsMultiRowsEnabled())
-            {
-                _command.ExecuteAsync().FireAndForget();
-                _rating.RegisterSuccessfulUsage();
-            }
-        }
-
+        
         /// <summary>
         /// Is pressed left or right Alt key.
         /// </summary>

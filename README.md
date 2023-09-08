@@ -19,9 +19,6 @@ being toggled on and off as shown in this animation.
 
 ![Multiline toggle](art/multiline.gif)
 
-When the multi-line tabs feature is enabled and you navigate to a different document within a 
-few seconds, the multi-line tabs will automatically collapse back to single-line.
-
 This behavior gives you quick access to all your open documents by using the mouse wheel.
 
 You can also move between open documents by holding the **Alt** key while scrolling the mouse wheel
